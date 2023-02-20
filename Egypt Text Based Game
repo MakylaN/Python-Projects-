@@ -57,3 +57,102 @@ while True:
     # bad command
     else:
         print('Invalid input')
+
+
+rooms = {
+        'Alexandria': {'name':'Alexandria','South': 'Nile', 'North': 'Pyramids of Giza', 'East': 'Abydos Temple', 'West': 'Am-shere', 'text':'Alexandria'},
+        'Nile': {'name':'Nile', 'North': 'Alexandria', 'East': 'Karnak', 'item': 'Amulet', 'text':'Nile'},
+        'Am-shere': {'name':'Am-shere','East': 'Alexandria', 'item': 'Canopic jars', 'text':'Am-shere'},
+        'Karnak': {'name': 'Karnak','West': 'Nile', 'item': 'Akhenaten', 'text':'Karnak'},
+        'Abydos temple': {'name':'Abydos temple','West': 'Alexandria', 'North': 'Cairo', 'item': 'Scarabs', 'text':'Abydos temple'},
+        'Cairo': {'name': 'Cairo','South': 'Abydos Temple', 'item': 'Sarcophagus', 'text':'Cairo'},
+        'Pyramids of Giza': {'name':'Pyramids of Giza', 'South': 'Alexandria', 'East': 'Hamuantra', 'item': 'Short Swords', 'text':'Pyramids of Giza'},
+        'Hamuantra': {'name':'Hamuantra', 'West': 'Pyramids of Giza', 'item': 'The Book of the Dead', 'text':'Hamuantra'}
+        }
+
+    item = {
+            'Nile': 'Amulet',
+            'Amshere': 'Canopic jars',
+            'Karnak': 'Akhenaten',
+            'Abydos temple': 'Scarabs',
+            'Cairo': 'Sarcophagus',
+            'Pyramids of Giza': 'Short Swords',
+            'Hamuantra': 'The Book of the Dead',
+    }
+    text = {
+        'Alexandria': 'You have just entered into a portal and you are in Alexandria.\n There is no item in this location.',
+        'Nile': 'You have just entered into a portal and now you are in the Nile.\n There is the amulet it over by the tomb.',
+        'Am-shere': 'You have just entered into a portal and now you are in Am-shere.\n There is the Canopic jars it is the chest near the treasure.',
+        'Karnak': 'You have just entered into a portal and now you are in Karnak.\n I hope you have collected all 6 items to defeat Akhenaten.',
+        'Abydos temple': 'You have just entered into a portal and now you are in Abydos Temple.\n Look at the wall there some Scarabs quick grab some.',
+        'Cairo': 'You have just entered into a portal and now you are in Cairo.\n We have to look around and see if we can find a Sarcophagus.\n Found one quickly grab it and lets set it up for the ritual.\n',
+        'Pyramids of Giza': 'You have just entered into a portal and now you are in Pyramids of Giza.\n Lets hurry and look around for any weapons that have been left.\n Wait! I see one near that Sarcophagus its a Short Sword.\n',
+        'Hamuantra': 'You have just entered into a portal and now you are in Hamuantra.\n We have to look for the goddess basset the the book of the dead is burried beneath her.\n I see her near the entrance lets get to work and grab it.\n',
+
+    }
+
+
+    instructions = ('Hello Player, Welcome to Medjay Journey\n'
+        'Akhenaten is one of the most feared pharaohs of Egypt and he is ready to take over the world.\n'
+        'You as the Medjay have to prevent Akhenaten from taking over the world by gathering all of the artifacts to\nbanish him from the land of the living.\n '
+        'You will be traveling through each portal throughout ancient Egypt to prevent him from accomplishing his goal.\n'
+        'You will be transported to one of these ancient Egypt locations based on your decision of movement of\n North, East, South, West.\n'
+        'The locations that you will be traveling throughout are the Nile, Pyramids of Giza, Cairo, Karnak,\nAbydos Temple, Hamuaptra, Am-shere, and Alexandria.\n'
+        'The artifacts that you will be needing to collect are:\nCanopic jars,The book of the dead, amulet, a Sarcophagus, Short Swords,and Scarabs.\n'
+        'Whith the artifacts that you collect you are able to banishing him,\n from the land of the living and preventing resurrection.\n')
+
+
+    directions = ['North', 'South', 'East', 'West']
+    pick_up_items = ['The Book of the Dead', 'Short Swords', 'Sarcophagus', 'Scarabs', 'Canopic jars', 'Amulet', 'Akhenaten']
+
+    print(instructions)
+    current_room = 'Alexandria'
+    items_in_room = 'None'
+    inventory = []
+
+    while True:
+        if inventory == [item]:
+            print('Congratulations! You collected all the items, you are ready for Karnak')
+        elif current_room == 'karnak':
+            print('You have collected all of the items!. That are needed to send Akhenaten back to the underworld!')
+            print('A bolt of magic streaks towards you and your vision goes black..... Game Over!')
+            break
+        # displays the players current location
+        print('You are in the {}.'.format(current_room))
+        print('Inventory:', inventory)
+        if items_in_room == 1:
+            print('You see a'.format(item))
+        else:
+            print("You don't see anything useful")
+
+        # gets the users input
+        command = input('\nEgypt locations:\n Which portal would you like? (North, East, South, West.)')
+        # this controls the movement
+        if command in directions:
+            if command in rooms[current_room].keys():
+                command = command.split()[0]
+            current_room = rooms[current_room[command]]
+        else:
+                # if the player inputs a bad movement
+                print('You cant go that way!')
+        if current_room == [item]:
+            command = pick_up_items[directions][text]
+            pick_up_items = input('Would you like you pick up the item. yes/no')
+
+        if pick_up_items == 'yes':
+            command = pick_up_items[inventory]
+        # Checks to see if the player types a 'get' command and adds the item in the room to the players inventory.
+        if command in pick_up_items:
+            command = command.split()[0]
+            if command in rooms[current_room].keys():
+                inventory.append(current_room[6])
+            else:
+                # if the player inputs a item not in the room
+                print('You cant get that item here!')
+      # quit game
+        if command == 'quit':
+            print('Thanks for playing!')
+            break
+        # bad command
+        else:
+            print('Invalid input')
