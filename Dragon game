@@ -1,0 +1,53 @@
+#start game as a introduction
+#A dictionary for the simplified dragon text game
+#The dictionary links a room to other rooms.
+import time
+
+print("Hello Player, Welcome to the dragon text game!")
+time.sleep(2)
+print("You will be going into each room looking for the dragons treasure.")
+time.sleep(2)
+print("But, you must be fast and quite or you might wake up the dragon!")
+time.sleep(2)
+print("You will start off in a room. Which you will have to navigate the location to find the the dragon.")
+time.sleep(4)
+# data setup
+rooms = {'Great Hall': {'name': 'Great Hall', 'south': 'Bedroom',
+                        'text': 'You are currently in The Great Hall.'},
+         'Bedroom': {'name': 'the bedroom', 'east': 'Cellar', 'north': 'Great Hall',
+                     'text': 'You are in the Bedroom.'},
+         'Cellar': {'name': 'the Cellar', 'west': 'Bedroom',
+                    'text': 'You are in the Cellar.'}
+         }
+directions = ['north', 'south', 'east', 'west']
+current_room = rooms['Great Hall']
+
+# game loop
+while True:
+    if current_room['name'] == 'the Cellar':
+        print('Congratulations!')
+        time.sleep(2)
+        print('You have reached the cellar and the Dragon is asleep!')
+        time.sleep(1)
+        print("Hurry and grab the treasure! Before the dragon wakes up!")
+        break
+    # display current location
+    print('You are in {}.'.format(current_room['name']))
+
+    # get user input
+    command = input('\nWhat way would you like to go? (North, South, West, East, or quit.) ')
+    # movement
+    if command in directions:
+        if command in current_room:
+            current_room = rooms[current_room[command]]
+        else:
+            # bad movement
+            print('Oops! You have ran into the the wall!.')
+    # quit game
+    elif command == 'quit':
+        print('Thanks for playing, you are now Exiting the game!')
+        print("Please Wait!")
+        break
+    # bad command
+    else:
+        print('Invalid input')
