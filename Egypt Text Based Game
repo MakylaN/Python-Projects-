@@ -1,0 +1,59 @@
+#start game as a introduction
+#A dictionary for the text game
+#The dictionary links a room to other rooms.
+import time
+
+print("Hello Player, Welcome to Medjay Journey")
+time.sleep(2)
+print("Akhenaten is one of the most feared pharaohs of Egypt and he is ready to take over the world. "
+      "You as the Medjay have to prevent Akhenaten from taking over the world by gathering all of the artifacts to banish him from the land of the living."
+      " You will be traveling through each portal throughout ancient Egypt to prevent him from accomplishing his goal. "
+      "You will be transported to one of these ancient Egypt locations based on your decision of movement of North, East, South, West.")
+time.sleep(4)
+print("The locations that you will be traveling throughout are the Nile, Pyramids of Giza, Cairo, Karnak, Abydos Temple, Hamuaptra, Am-shere, and Alexandria. "
+      "The artifacts that you will be needing to collect are Canopic jars,The book of the dead, amulet, a Sarcophagus, Short Swords,and Scarabs."
+      " For banishing him from the land of the living and preventing resurrection.")
+time.sleep(5)
+# data setup
+rooms = {'Great Hall': {'name': 'Great Hall', 'south': 'Bedroom',
+                        'text': 'You are currently in The Great Hall.'},
+         'Bedroom': {'name': 'the bedroom', 'east': 'Cellar', 'north': 'Great Hall',
+                     'text': 'You are in the Bedroom.'},
+         'Cellar': {'name': 'the Cellar', 'west': 'Bedroom',
+                    'text': 'You are in the Cellar.'}
+         }
+directions = ['north', 'south', 'east', 'west']
+current_room = rooms['Great Hall']
+
+# game loop
+while True:
+    if current_room['name'] == 'the Cellar':
+        print('Congratulations!')
+        print('You have reached the cellar and the Dragon is asleep!')
+        print("Hurry and grab the treasure! Before the dragon wakes up!")
+        time.sleep(2)
+        print('Thanks for playing, you are now Exiting the game!')
+        print("Please wait!")
+        time.sleep(7)
+        break
+    # display current locations
+    print('You are in {}.'.format(current_room['name']))
+
+    # get user input
+    command = input('\nWhat way would you like to go? (North, South, West, East, or quit.) ')
+    # movement
+    if command in directions:
+        if command in current_room:
+            current_room = rooms[current_room[command]]
+        else:
+            # bad movement
+            print('Oops! You have ran into the the wall!.')
+    # quit game
+    elif command == 'quit':
+        print('Thanks for playing, you are now Exiting the game!')
+        print("Please Wait!")
+        time.sleep(6)
+        break
+    # bad command
+    else:
+        print('Invalid input')
